@@ -1,0 +1,19 @@
+if args.loss == "FocalLoss":
+    criterion = FocalLoss(weight=args.weight, map_gamma=args.map_gamma, map_alpha=args.map_alpha,
+                          map_beta=args.map_beta, clip=args.clip, disable_torch_grad_focal_loss=False)
+elif args.loss == "MultiFocalLoss":
+    criterion = MultiFocalLoss(args, gamma_neg=args.gamma_neg, gamma_pos=args.gamma_pos, clip=args.clip,
+                               disable_torch_grad_focal_loss=False)
+elif args.loss == "AsymmetricLoss":
+    criterion = AsymmetricLoss()
+elif args.loss == "TwoWayLoss":
+    criterion = TwoWayLoss(Tp=4., Tn=1.)
+elif args.loss == "CombinedTwoWayLfaLoss":
+    criterion = CombinedTwoWayLfaLoss(weight_cosine=0.5, weight_twoway=0.5)
+elif args.loss == 'CombinedMfLfaLoss':
+    criterion = CombinedMfLfaLoss(args, gamma_neg=args.gamma_neg, gamma_pos=args.gamma_pos, clip=args.clip,
+                                  disable_torch_grad_focal_loss=False, weight_cosine=0.5, weight_focal=0.5)
+elif args.loss == 'CombinedTwoWayProtoLoss':
+    criterion = CombinedTwoWayProtoLoss(weight_prototype=0.5, weight_twoway=0.5)
+elif args.loss == 'PrototypeLoss':
+    criterion = PrototypeLoss()
